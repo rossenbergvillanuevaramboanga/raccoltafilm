@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import it.prova.raccoltafilm.exceptions.ElementNotFoundException;
+import it.prova.raccoltafilm.exceptions.RegistaConFilmException;
 import it.prova.raccoltafilm.model.Film;
 import it.prova.raccoltafilm.model.Regista;
 import it.prova.raccoltafilm.service.MyServiceFactory;
@@ -43,6 +44,11 @@ public class ExecuteDeleteRegistaServlet extends HttpServlet {
 			registaService.rimuovi(Long.parseLong(idRegistaParam));
 			
 		} catch (ElementNotFoundException e) {
+			request.getRequestDispatcher("ExecuteListRegistaServlet?operationResult=NOT_FOUND").forward(request,
+					response);
+			return;
+			
+		} catch (RegistaConFilmException e) {
 			request.getRequestDispatcher("ExecuteListRegistaServlet?operationResult=NOT_FOUND").forward(request,
 					response);
 			return;

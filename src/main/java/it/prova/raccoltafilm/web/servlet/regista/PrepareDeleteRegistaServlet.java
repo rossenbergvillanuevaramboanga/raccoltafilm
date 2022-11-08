@@ -8,7 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.math.NumberUtils;
+import org.hibernate.boot.model.source.spi.PluralAttributeElementSourceOneToMany;
 
+import it.prova.raccoltafilm.exceptions.ElementNotFoundException;
+import it.prova.raccoltafilm.exceptions.RegistaConFilmException;
 import it.prova.raccoltafilm.model.Film;
 import it.prova.raccoltafilm.model.Regista;
 import it.prova.raccoltafilm.service.FilmService;
@@ -32,7 +35,7 @@ public class PrepareDeleteRegistaServlet extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
 		String idRegistaParam = request.getParameter("idRegista");
 		
 		if (!NumberUtils.isCreatable(idRegistaParam)) {
@@ -46,23 +49,30 @@ public class PrepareDeleteRegistaServlet extends HttpServlet {
 			
 			Regista registaInstance = registaService.caricaSingoloElementoConFilms(Long.parseLong(idRegistaParam));
 
-			if (registaInstance == null) {
-				request.setAttribute("errorMessage", "Elemento non trovato.");
-				request.getRequestDispatcher("ExecuteListRegistaServlet?operationResult=NOT_FOUND").forward(request,
-						response);
-				return;
-			}
+			if (registaInstance == null)
+				throw new ElementNotFoundException("Il regista che sta cercando di eliminare ha dei films.");
 			
-			if (registaInstance.getFilms().size() != 0) {
-				request.setAttribute("errorMessage", "Il regista che sta cercando di eliminare ha dei films.");
-				request.getRequestDispatcher("ExecuteListRegistaServlet?operationResult=NOT_FOUND").forward(request,
-						response);
-				return;
-			}
+			if (registaInstance.getFilms().size() != 0)
+				throw new RegistaConFilmException("Il regista che sta cercando di eliminare ha dei films.");
 
 			request.setAttribute("delete_regista_attr", registaInstance);
 			
-		} catch (Exception e) {
+		} 
+		catch (RegistaConFilmException e) {
+			e.printStackTrace();
+			request.setAttribute("errorMessage", "Il regista che sta cercando di eliminare ha dei films.");
+			request.getRequestDispatcher("ExecuteListRegistaServlet?operationResult=NOT_FOUND").forward(request,
+					response);
+			return;
+			
+		}catch (ElementNotFoundException e) {
+			e.printStackTrace();
+			request.setAttribute("errorMessage", "Elemento non trovato.");
+			request.getRequestDispatcher("ExecuteListRegistaServlet?operationResult=NOT_FOUND").forward(request,
+					response);
+			return;
+			
+		}catch (Exception e) {
 			// qui ci andrebbe un messaggio nei file di log costruito ad hoc se fosse attivo
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "Attenzione si è verificato un errore.");
