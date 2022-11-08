@@ -53,8 +53,12 @@ public class RegistaDAOImpl implements RegistaDAO {
 	}
 
 	@Override
-	public void delete(Regista o) throws Exception {
+	public void delete(Regista registaInstance) throws Exception {
 		// TODO Auto-generated method stub
+		if (registaInstance == null) {
+			throw new Exception("Problema valore in input");
+		}
+		entityManager.remove(entityManager.merge(registaInstance));
 
 	}
 

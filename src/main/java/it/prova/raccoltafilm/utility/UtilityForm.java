@@ -98,4 +98,9 @@ public class UtilityForm {
 			return null;
 		}
 	}
+
+	public static Long parseIntegerFilmIdFromString(String idFilm) {
+		// TODO Auto-generated method stub
+		return parseIntegerRegistaIdFromString(idFilm);
+	}
 }

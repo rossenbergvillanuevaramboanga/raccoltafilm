@@ -41,7 +41,19 @@ public class FilmServiceImpl implements FilmService {
 	@Override
 	public Film caricaSingoloElemento(Long id) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
+		
+		try {
+			filmDAO.setEntityManager(entityManager);
+			return filmDAO.findOne(id).orElse(null);
+			
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw e;
+		}finally {
+			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
+		}
 	}
 
 	@Override
@@ -67,6 +79,24 @@ public class FilmServiceImpl implements FilmService {
 	@Override
 	public void aggiorna(Film filmInstance) throws Exception {
 		// TODO Auto-generated method stub
+		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
+		
+		try {
+			entityManager.getTransaction().begin();
+			
+			filmDAO.setEntityManager(entityManager);
+			filmDAO.update(filmInstance);
+			
+			entityManager.getTransaction().commit();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			entityManager.getTransaction().rollback();
+			e.printStackTrace();
+			throw e;
+		}finally {
+			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
+		}
 
 	}
 
