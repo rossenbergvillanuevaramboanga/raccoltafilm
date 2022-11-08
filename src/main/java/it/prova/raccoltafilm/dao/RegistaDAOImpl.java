@@ -11,6 +11,8 @@ import javax.persistence.TypedQuery;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.mysql.cj.xdevapi.Result;
+
 import it.prova.raccoltafilm.model.Regista;
 
 public class RegistaDAOImpl implements RegistaDAO {
@@ -30,7 +32,8 @@ public class RegistaDAOImpl implements RegistaDAO {
 	@Override
 	public Optional<Regista> findOne(Long id) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		Regista result = entityManager.find(Regista.class, id);
+		return result != null? Optional.of(result) : Optional.empty();
 	}
 
 	@Override

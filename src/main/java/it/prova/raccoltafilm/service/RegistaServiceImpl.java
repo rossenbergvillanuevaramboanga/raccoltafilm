@@ -40,7 +40,18 @@ public class RegistaServiceImpl implements RegistaService {
 	@Override
 	public Regista caricaSingoloElemento(Long id) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
+		
+		try {
+			registaDAO.setEntityManager(entityManager);
+			return registaDAO.findOne(id).orElse(null);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw e;
+		}finally {
+			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
+		}
 	}
 
 	@Override

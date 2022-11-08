@@ -73,4 +73,29 @@ public class UtilityForm {
 			return null;
 		}
 	}
+	
+	public static Integer parseIntegerMinutiDurataFromString(String minutiDurataParam) {
+		if(StringUtils.isBlank(minutiDurataParam))
+			return null; 
+		
+		try {
+			return Integer.parseInt(minutiDurataParam);
+		}catch (Exception e) {
+			// TODO: handle exception
+			return null;
+		}
+	}
+
+	public static Long parseIntegerRegistaIdFromString(String registaIdParam) {
+		// TODO Auto-generated method stub
+		if(StringUtils.isBlank(registaIdParam))
+			return null; 
+		
+		try {
+			return Long.parseLong(registaIdParam);
+		}catch (Exception e) {
+			// TODO: handle exception
+			return null;
+		}
+	}
 }
