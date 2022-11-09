@@ -21,7 +21,7 @@ import it.prova.raccoltafilm.service.RegistaService;
 /**
  * Servlet implementation class PrepareDeleteRegistaServlet
  */
-@WebServlet("/PrepareDeleteRegistaServlet")
+@WebServlet("/admin/PrepareDeleteRegistaServlet")
 public class PrepareDeleteRegistaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

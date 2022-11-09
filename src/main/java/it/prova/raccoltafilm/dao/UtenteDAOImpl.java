@@ -11,6 +11,7 @@ import javax.persistence.TypedQuery;
 
 import org.apache.commons.lang3.StringUtils;
 
+import it.prova.raccoltafilm.model.Regista;
 import it.prova.raccoltafilm.model.Ruolo;
 import it.prova.raccoltafilm.model.StatoUtente;
 import it.prova.raccoltafilm.model.Utente;
@@ -126,6 +127,13 @@ public class UtenteDAOImpl implements UtenteDAO {
 		}
 
 		return typedQuery.getResultList();
+	}
+
+	@Override
+	public Optional<Utente> findOneEager(Long id) throws Exception {
+		// TODO Auto-generated method stub
+		return entityManager.createQuery("from Utente u left join fetch u.ruoli where u.id=:idRuolo", Utente.class)
+				.setParameter("idRuolo", id).getResultList().stream().findFirst();
 	}
 
 }

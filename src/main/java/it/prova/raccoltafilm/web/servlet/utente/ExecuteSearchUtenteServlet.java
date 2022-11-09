@@ -15,7 +15,7 @@ import it.prova.raccoltafilm.utility.UtilityForm;
 /**
  * Servlet implementation class ExecuteSearchUtenteServlet
  */
-@WebServlet("/ExecuteSearchUtenteServlet")
+@WebServlet("/admin/ExecuteSearchUtenteServlet")
 public class ExecuteSearchUtenteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     

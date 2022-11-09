@@ -55,4 +55,11 @@ public class Ruolo {
 		this.codice = codice;
 	}
 
+	@Override
+	public String toString() {
+		return descrizione;
+	}
+	
+	
+
 }

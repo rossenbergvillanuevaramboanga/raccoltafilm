@@ -58,6 +58,27 @@ public class UtenteServiceImpl implements UtenteService {
 			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
 		}
 	}
+	
+	@Override
+	public Utente caricaSingoloElementoEager(Long id) throws Exception {
+		// TODO Auto-generated method stub
+		EntityManager entityManager = LocalEntityManagerFactoryListener.getEntityManager();
+
+		try {
+			// uso l'injection per il dao
+			utenteDAO.setEntityManager(entityManager);
+
+			// eseguo quello che realmente devo fare
+			return utenteDAO.findOneEager(id).orElse(null);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
+		}
+	}
+
 
 	@Override
 	public void aggiorna(Utente utenteInstance) throws Exception {
@@ -212,5 +233,6 @@ public class UtenteServiceImpl implements UtenteService {
 			LocalEntityManagerFactoryListener.closeEntityManager(entityManager);
 		}
 	}
+
 
 }
