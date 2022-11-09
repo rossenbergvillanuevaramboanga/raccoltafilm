@@ -3,12 +3,15 @@ package it.prova.raccoltafilm.utility;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
+
 import it.prova.raccoltafilm.model.Film;
 import it.prova.raccoltafilm.model.Regista;
+import it.prova.raccoltafilm.model.Ruolo;
 import it.prova.raccoltafilm.model.Sesso;
 import it.prova.raccoltafilm.model.Utente;
 
@@ -34,6 +37,17 @@ public class UtilityForm {
 		}
 		return true;
 	}
+	
+	public static Utente createUtenteFromParams(String usernameParam, String nomeParam, String cognomeParam) {
+		// TODO Auto-generated method stub
+		Utente result = new Utente();
+		result.setUsername(usernameParam);
+		result.setNome(nomeParam);
+		result.setCognome(cognomeParam);
+		return result;
+		
+	}
+
 	
 	public static Film createFilmFromParams(String titoloInputParam, String genereInputParam,
 			String minutiDurataInputParam, String dataPubblicazioneStringParam, String registaIdStringParam) {
@@ -69,7 +83,8 @@ public class UtilityForm {
 		if (StringUtils.isBlank(utenteToBeValidated.getNome())
 				|| StringUtils.isBlank(utenteToBeValidated.getCognome())
 				|| StringUtils.isBlank(utenteToBeValidated.getUsername()) 
-				|| utenteToBeValidated.getDateCreated() == null) {
+				|| StringUtils.isBlank(utenteToBeValidated.getPassword()) 
+				|| utenteToBeValidated.getRuoli().size() == 0) {
 			return false;
 		}
 		return true;
@@ -115,4 +130,6 @@ public class UtilityForm {
 		// TODO Auto-generated method stub
 		return parseIntegerRegistaIdFromString(idFilm);
 	}
+
 }
+	

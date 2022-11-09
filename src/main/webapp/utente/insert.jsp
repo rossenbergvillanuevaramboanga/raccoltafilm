@@ -46,7 +46,7 @@
 							
 								<div class="col-md-6">
 									<label for="nome" class="form-label">Username <span class="text-danger">*</span></label>
-									<input type="text" name="nome" id="nome" class="form-control" placeholder="Inserire il nome" value="${insert_utente_attr.username }" required>
+									<input type="text" name="username" id="username" class="form-control" placeholder="Inserire username" value="${insert_utente_attr.username }" required>
 								</div>
 							
 							
@@ -67,7 +67,7 @@
 								
 								<div class="col-md-6">
 									<label for="nickName" class="form-label">Reinserisci Password <span class="text-danger">*</span></label>
-									<input type="text" class="form-control" name="passwordConfirm" id="passwordConfirm" placeholder="" value="password" required>
+									<input type="text" class="form-control" name="passwordConfirm" id="passwordConfirm" placeholder="password" value="" required>
 								</div>
 								
 								<div class="col-md-6">
@@ -75,7 +75,7 @@
 										<c:forEach items="${ruolo_list_attribute}" var="ruolo">
 										
      										 <div class="form-check">
-     								 			<input class="form-check-input" type="checkbox" value="${ruolo.id}" name="ruoli" id="flexCheckDefault" ${ruolo.id}>
+     								 			<input class="form-check-input" type="checkbox" value="${ruolo.id}" name="ruolo" id="ruolo" ${insert_utente_attr.ruoli.contains(ruolo)?"checked":""}>
      								 			<label class="form-check-label" for="flexCheckDefault">${ruolo}</label>
      										 </div>
      										 
